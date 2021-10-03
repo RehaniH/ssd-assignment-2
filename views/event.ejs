@@ -1,0 +1,117 @@
+<html>
+
+<head>
+
+  <title> Google calender API </title>
+
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script> -->
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+  <body class="body">
+        <div class="container">
+            <div class="row"></div>
+            <div class="row">
+                <div class="offset-lg-3 col-lg-6 offset-lg-3 text-center ">
+                    <h3 class="heading">Appointment App</h3>
+                </div>
+                <div class=" offset-lg-3 col-lg-6 offset-lg-3">
+                    <form>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Summary</label>
+                          <input type="text" class="form-control" id="summary" aria-describedby="emailHelp" placeholder="Enter Summary">
+                        </div>    
+                        <!-- <div class="form-group">
+                            <label for="exampleInputEmail1">Description</label>
+                            <textarea class="form-control" id="description" aria-describedby="emailHelp" placeholder="Enter Description">
+                          </div> -->
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Description</label>
+                            <input type="text" class="form-control" id="description" aria-describedby="emailHelp" placeholder="Enter Description">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Location</label>
+                            <input type="text" class="form-control" id="location" aria-describedby="emailHelp" placeholder="Enter Location">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">From</label>
+                            <input type="date" class="form-control" id="fromdate" aria-describedby="emailHelp">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">To</label>
+                            <input type="date" class="form-control" id="todate" aria-describedby="emailHelp">
+                          </div>
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+  </body>
+
+</html>
+
+<script type="text/javascript">
+
+  $('#msg').hide();
+  $('#msg_error').hide();
+
+  $('#eventSubmit').on('click', function (e) {
+    e.preventDefault();
+
+    var summary = $('#summary').val();
+    var description = $('#description').val();
+    var location = $('#location').val();
+    var start = $('#start').val();
+    var end = $('#end').val();
+
+    if (summary == "" || summary == null || description == "" || description == null || location == "" || location == null || start == null || start == "" || end == "" || end == null) {
+      iziToast.warning({
+        title: 'Warning',
+        message: "Please fill all the fields...!",
+        position: 'center',
+      });
+    } else {
+      $.ajax({
+        url: '/addEvent',
+        method: 'POST',
+        data: {
+          summary: summary,
+          description: description,
+          location: location,
+          start: start,
+          end: end
+        },
+        headers: {
+          Authorization: $`Bearer ${localStorage.getItem("access_token")}`
+        },
+        error: function (r) { },
+        success: function (r) {
+          if (r.result) {
+            $('#msg').show();
+            $('#main_form').hide();
+            $("#url_id").html("<a href='" + r.url + "'> Click here to view in google Calender </a>");
+
+          } else {
+            $('#msg_error').show();
+            $('#main_form').hide();
+
+          }
+        }
+      });
+
+    }
+
+  });
+</script>
