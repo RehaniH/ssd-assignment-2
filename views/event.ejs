@@ -17,17 +17,24 @@
         <div class="container">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add Event</a>
+              <a class="nav-link active" id="addEvents-tab" data-toggle="tab" href="#addEvents" role="tab" aria-controls="addEvents" aria-selected="true">Add Event</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">View</a>
+              <a class="nav-link" id="viewEvents-tab" data-toggle="tab" href="#viewEvents" role="tab" aria-controls="viewEvents" aria-selected="false">View Events</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="addContact-tab" data-toggle="tab" href="#addContact" role="tab" aria-controls="addContact" aria-selected="false">Add Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="viewContact-tab" data-toggle="tab" href="#viewContact" role="tab" aria-controls="viewContact" aria-selected="false">View Contacts</a>
+            </li>
+        
           </ul>
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active" id="addEvents" role="tabpanel" aria-labelledby="addEvents-tab">
               <div class="row" id="appointment">
                 <div class="offset-lg-3 col-lg-6 offset-lg-3 text-center ">
-                    <h3 class="heading">Appointment App</h3>
+                    <h3 class="heading">Create Event</h3>
                 </div>
                 <div class=" offset-lg-3 col-lg-6 offset-lg-3">
                     <form>
@@ -67,11 +74,17 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
+                      <div id="error3" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Empty Fields found!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
                 </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-              <div class="row" id="appointment">
+            <div class="tab-pane fade" id="viewEvents" role="tabpanel" aria-labelledby="viewEvents-tab">
+              <div class="row">
                 <div class="offset-lg-3 col-lg-6 offset-lg-3 text-center ">
                     <h3 class="heading">Appointment List</h3>
                 </div>
@@ -79,25 +92,98 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
+                        <th scope="col">Summary</th>
+                        <th scope="col">Organizer</th>
+                        <th scope="col">Link</th>
+                        <th scope="col">Description</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
+                    <tbody id="eventsTable">
+                      
                     </tbody>
                   </table>
                 </div>
                 </div>
             </div>
-          </div>  
+            <div class="tab-pane fade" id="addContact" role="tabpanel" aria-labelledby="addEvents-tab">
+              <div class="row">
+                <div class="offset-lg-3 col-lg-6 offset-lg-3 text-center ">
+                    <h3 class="heading">Create Contact</h3>
+                </div>
+                <div class=" offset-lg-3 col-lg-6 offset-lg-3">
+                    <form>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">E-mail</label>
+                        <input type="email" class="form-control" id="conmail" aria-describedby="emailHelp" placeholder="Enter E-mail">
+                      </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Name</label>
+                          <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+                        </div>    
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Name</label>
+                          <select class="form-control" name="" id="">
+                            <option value="home">Home</option>
+                            <option value="work">Work</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Given Name</label>
+                          <input type="text" class="form-control" id="givenname" aria-describedby="emailHelp" placeholder="Enter Given Name">
+                        </div>   
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Family Name</label>
+                          <input type="text" class="form-control" id="familyname" aria-describedby="emailHelp" placeholder="Enter Family Name">
+                        </div>     
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                      <div id="successc" class="alert alert-primary alert-dismissible fade show" role="alert">
+                        Success!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div id="errorc" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Error!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div id="error2c" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Empty Fields found!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="viewContact" role="tabpanel" aria-labelledby="addEvents-tab">
+              <div class="row">
+                <div class="offset-lg-3 col-lg-6 offset-lg-3 text-center ">
+                    <h3 class="heading">Contact List</h3>
+                </div>
+                <div class=" offset-lg-2 col-lg-8 offset-lg-2">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Email</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Given Name</th>
+                        <th scope="col">Family Name</th>
+                      </tr>
+                    </thead>
+                    <tbody id="contactsTable">
+                      
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+            </div>  
           
         </div>
 
@@ -110,9 +196,70 @@
   $(document).ready(function () {
     // $('#error').alert('close');
     $('#error').hide();
+    $('#error2').hide();
+    $('#error3').hide();
     $('#success').hide();
 
+    $('#errorc').hide();
+    $('#error2c').hide();
+    $('#successc').hide();
+    LoadEvents();
   });
+
+  function LoadEvents() {
+        $.ajax({
+            url: '/getevents',
+            method: 'GET',
+            headers: {
+                Authorization: $ `Bearer ${localStorage.getItem("access_token")}`
+            },
+            error: function(r) {},
+            success: function(r) {
+                console.log(r.result);
+                let html = '';
+                $.each(r.result, function(k, v) {
+                    html +='<tr>';
+                    html +='<td>'+v.startTime+'</td>';
+                    html +='<td>'+v.endTime+'</td>';
+                    html +='<td>'+v.summary+'</td>';
+                    html +='<td>'+v.organizer+'</td>';
+                    html +='<td><a target="_blank" href="'+v.htmlLink+'"><img src="https://www.seekpng.com/png/full/25-254372_80-hand-drawn-arrows-ps-brush-set-arrow.png" alt="HTML tutorial" style="width:42px;height:42px;"></a></td>';
+                    html +='<td>'+v.description+'</td>';
+                    html +='<tr>';
+
+                });
+
+                $("#eventsTable").html(html);
+            }
+        });
+    }
+
+    function LoadContacts() {
+        $.ajax({
+            url: '/getContacts',
+            method: 'GET',
+            headers: {
+                Authorization: $ `Bearer ${localStorage.getItem("access_token")}`
+            },
+            error: function(r) {},
+            success: function(r) {
+                console.log(r.result);
+                let html = '';
+                $.each(r.result, function(k, v) {
+                    html +='<tr>';
+                    html +='<td>'+v.email+'</td>';
+                    html +='<td>'+v.name+'</td>';
+                    html +='<td>'+v.type+'</td>';
+                    html +='<td>'+v.givenName+'</td>';
+                    html +='<td>'+v.familyName+'</td>';
+                    html +='<tr>';
+
+                });
+
+                $("#contactsTable").html(html);
+            }
+        });
+    }
 
 
   $('#eventSubmit').on('click', function (e) {
