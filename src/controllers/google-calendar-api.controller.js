@@ -50,7 +50,7 @@ exports.createCalenderEvent = function(req, res) {
 
 exports.getAllCalenderEvents = function(req, res) {
     
-    const calendar = google.calendar({ version: 'v3', auth: client });
+    const calendar = google.calendar({ version: 'v3', auth: googleApiUtil.client });
     calendar.events.list({
         calendarId: 'primary',
         timeMin: (new Date()).toISOString(),
@@ -58,17 +58,25 @@ exports.getAllCalenderEvents = function(req, res) {
         singleEvents: true,
         orderBy: 'startTime',
     }, (err, response) => {
-        if (err) return console.log('The API returned an error: ' + err);
+        if (err) return res.json({error_stat:1, error_msg: 'insufficient permission'});
         const events = response.data.items;
         if (events.length) {
-            console.log('Upcoming 10 events:');
+            var eventList = []
             events.map((event, i) => {
-                const start = event.start.dateTime || event.start.date;
-                console.log(`${start} - ${event.summary}`);
+                
+                eventList.push({
+                    startTime: event.start.dateTime,
+                    endTime: event.end.dateTime,
+                    summary: event.summary,
+                    organizer: event.organizer.email,
+                    htmlLink: event.htmlLink,
+                    description: event.description,
+                });
+                
             });
         } else {
             console.log('No upcoming events found.');
         }
-        return res.json({ result: events });
+        return res.json({ result: eventList, error_stat: 0 });
     });
 }
