@@ -1,12 +1,13 @@
 const {google} = require('googleapis')
 
-const CLIENT_ID = '971463985476-eq1s0pe0g74a7k6a2rf9nojhguctonl5.apps.googleusercontent.com'
-const CLIENT_SECRET = 'ac6LJoVRE5yNlVUjLrvzbwsx'
+//Registered client id
+const CLIENT_ID = '971463985476-ao11dct9ga9567mvb945m6jcdb4hpqaf.apps.googleusercontent.com'
+//client secret
+const CLIENT_SECRET = '0xHUKpuzaQts3V5hyfOvB-qS'
+//OAuth 2.0 Server redirect url
 const REDIRECT_URL = 'http://localhost:3400/redirect'
   
-/**
- * Create the google auth object.
- */
+//return google auth object
 function createConnectionToAPI() {
     return new google.auth.OAuth2(
         CLIENT_ID,
@@ -18,14 +19,18 @@ function createConnectionToAPI() {
 //permissions
 const scopes = [
     'https://www.googleapis.com/auth/plus.me',
+    'https://www.googleapis.com/auth/contacts',
     'https://www.googleapis.com/auth/calendar',
     'https://www.googleapis.com/auth/calendar.events',
     'https://www.googleapis.com/auth/calendar.readonly',
     'https://www.googleapis.com/auth/calendar.events.readonly'
 ];
 
+//google auth object
 const oauth2Client = createConnectionToAPI()
-const URL_TO_GOOGLE = oauth2Client.generateAuthUrl({
+
+//generate authorization request url
+const authRequestUrl = oauth2Client.generateAuthUrl({
     // 'online' (default) or 'offline' (gets refresh_token)
     access_type: 'offline',
     scope: scopes
@@ -33,7 +38,7 @@ const URL_TO_GOOGLE = oauth2Client.generateAuthUrl({
 
 exports.client = oauth2Client
 exports.getUrl = function(){
-    return URL_TO_GOOGLE;
+    return authRequestUrl;
 }  
 
 
