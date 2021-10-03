@@ -40,10 +40,18 @@ app.get("/redirect", function(req, res) {
 app.post("/addEvent", function(req, res){
     googleAPIController.createCalenderEvent(req, res)
 });
+
+//get events of google calendar instance
 app.get('/getevents', function(req, res){
     googleAPIController.getAllCalenderEvents(req,res)
 });
 
+// Adding an contact to google contact list 
+app.post("/addContact", function(req, res){
+    googlePeopleApiController.createGoogleContact(req, res)
+});
+
+//get contacts of logged in user
 app.get('/getContacts', function(req, res){
     googlePeopleApiController.getGoogleContact(res)
 });
