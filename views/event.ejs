@@ -55,6 +55,18 @@
                         
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </form>
+                      <div id="success" class="alert alert-primary alert-dismissible fade show" role="alert">
+                        Success!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div id="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Error!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
                 </div>
                 </div>
             </div>
@@ -80,23 +92,13 @@
                         <td>Otto</td>
                         <td>@mdo</td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
                 </div>
             </div>
           </div>  
+          
         </div>
 
   </body>
@@ -105,9 +107,13 @@
 
 <script type="text/javascript">
 
+  $(document).ready(function () {
+    // $('#error').alert('close');
+    $('#error').hide();
+    $('#success').hide();
 
-  $('#msg').hide();
-  // $('#appointment').hide();
+  });
+
 
   $('#eventSubmit').on('click', function (e) {
     e.preventDefault();
@@ -140,11 +146,10 @@
         },
         error: function (r) { },
         success: function (r) {
-          if (r.result) {
-            $('#msg').show();
-            $('#main_form').hide();
-            $("#url_id").html("<a href='" + r.url + "'> Click here to view in google Calender </a>");
+          if (r.result) { 
 
+            alertify.success('Ok');
+         
           } else {
             $('#msg_error').show();
             $('#main_form').hide();
