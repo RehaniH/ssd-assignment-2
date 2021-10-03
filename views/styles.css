@@ -1,0 +1,20 @@
+.body{
+    margin-top: 80px;
+    background-color: #2b2b2b;
+}
+
+.heading{
+    color: whitesmoke;
+ 
+}
+
+label{
+    color: whitesmoke;
+
+}
+
+.btn{
+    color: #fff;
+    background-color: #1d2124;
+    border-color: #007bff;
+}
