@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
     console.log("get request")
     var url = googleApiUtil.getUrl();
     //res.status(200).json({ url: url });
-    res.render("login", { url: url });
+    res.render("event", { url: url });
 });
 
 
