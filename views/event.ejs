@@ -40,27 +40,27 @@
                     <form>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Summary</label>
-                          <input type="text" class="form-control" id="summary" aria-describedby="emailHelp" placeholder="Enter Summary">
+                          <input type="text" class="form-control" id="summary" name="summary"  aria-describedby="emailHelp" placeholder="Enter Summary">
                         </div>    
                         
                           <div class="form-group">
                             <label for="exampleInputEmail1">Description</label>
-                            <input type="text" class="form-control" id="description" aria-describedby="emailHelp" placeholder="Enter Description">
+                            <input type="text" class="form-control" id="description"  name="description" aria-describedby="emailHelp" placeholder="Enter Description">
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail1">Location</label>
-                            <input type="text" class="form-control" id="location" aria-describedby="emailHelp" placeholder="Enter Location">
+                            <input type="text" class="form-control" id="location" name="location" aria-describedby="emailHelp" placeholder="Enter Location">
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail1">From</label>
-                            <input type="date" class="form-control" id="fromdate" aria-describedby="emailHelp">
+                            <input type="date" class="form-control" id="fromdate" name="fromdate" aria-describedby="emailHelp">
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail1">To</label>
-                            <input type="date" class="form-control" id="todate" aria-describedby="emailHelp">
+                            <input type="date" class="form-control" id="todate" name="todate" aria-describedby="emailHelp">
                           </div>
                         
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button id="eventSubmit" name="" type="submit" class="btn btn-primary">Submit</button>
                       </form>
                       <div id="success" class="alert alert-primary alert-dismissible fade show" role="alert">
                         Success!
@@ -74,7 +74,7 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div id="error3" class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <div id="errore" class="alert alert-danger alert-dismissible fade show" role="alert">
                         Empty Fields found!
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
@@ -116,29 +116,29 @@
                     <form>
                       <div class="form-group">
                         <label for="exampleInputEmail1">E-mail</label>
-                        <input type="email" class="form-control" id="conmail" aria-describedby="emailHelp" placeholder="Enter E-mail">
+                        <input type="email" class="form-control" id="conmail" name="conmail" aria-describedby="emailHelp" placeholder="Enter E-mail">
                       </div>
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Name</label>
-                          <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+                          <input type="text" class="form-control" id="cname" name="cname" aria-describedby="emailHelp" placeholder="Enter Name">
                         </div>    
                         <div class="form-group">
-                          <label for="exampleInputEmail1">Name</label>
-                          <select class="form-control" name="" id="">
+                          <label for="exampleInputEmail1">Type</label>
+                          <select class="form-control"  id="type" name="type">
                             <option value="home">Home</option>
                             <option value="work">Work</option>
                           </select>
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Given Name</label>
-                          <input type="text" class="form-control" id="givenname" aria-describedby="emailHelp" placeholder="Enter Given Name">
+                          <input type="text" class="form-control" id="givenname" name="givenname" aria-describedby="emailHelp" placeholder="Enter Given Name">
                         </div>   
                         <div class="form-group">
                           <label for="exampleInputEmail1">Family Name</label>
-                          <input type="text" class="form-control" id="familyname" aria-describedby="emailHelp" placeholder="Enter Family Name">
+                          <input type="text" class="form-control" id="familyname" name="familyname" aria-describedby="emailHelp" placeholder="Enter Family Name">
                         </div>     
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button id="contactSubmit" name="contactSubmit" type="submit" class="btn btn-primary">Submit</button>
                       </form>
                       <div id="successc" class="alert alert-primary alert-dismissible fade show" role="alert">
                         Success!
@@ -170,11 +170,9 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">Email</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Given Name</th>
-                        <th scope="col">Family Name</th>
+                        <th scope="col">Display Name</th>
+                        <th scope="col">E-mail</th>
+                       
                       </tr>
                     </thead>
                     <tbody id="contactsTable">
@@ -196,14 +194,14 @@
   $(document).ready(function () {
     // $('#error').alert('close');
     $('#error').hide();
-    $('#error2').hide();
-    $('#error3').hide();
+    $('#errore').hide();
     $('#success').hide();
 
     $('#errorc').hide();
     $('#error2c').hide();
     $('#successc').hide();
     LoadEvents();
+    LoadContacts();
   });
 
   function LoadEvents() {
@@ -247,11 +245,8 @@
                 let html = '';
                 $.each(r.result, function(k, v) {
                     html +='<tr>';
+                    html +='<td>'+v.displayName+'</td>';
                     html +='<td>'+v.email+'</td>';
-                    html +='<td>'+v.name+'</td>';
-                    html +='<td>'+v.type+'</td>';
-                    html +='<td>'+v.givenName+'</td>';
-                    html +='<td>'+v.familyName+'</td>';
                     html +='<tr>';
 
                 });
@@ -261,6 +256,46 @@
         });
     }
 
+    $('#contactSubmit').on('click', function (e) {
+    e.preventDefault();
+
+    var email = $('#conmail').val();
+    var type = $('#type').val();
+    var name = $('#cname').val();
+    var familyName = $('#familyname').val();
+    var givenName = $('#givenname').val();
+
+    if (email == "" || email == null || type == "" || type == null || name == "" || name == null || familyName == null || familyName == "" || givenName == "" || givenName == null) {
+      $('#error2c').hide();
+      ;
+    } else {
+      $.ajax({
+        url: '/addContact',
+        method: 'POST',
+        data: {
+          email: email,
+          type: type,
+          name: name,
+          familyName: familyName,
+          givenName: givenName
+        },
+        headers: {
+          Authorization: $`Bearer ${localStorage.getItem("access_token")}`
+        },
+        error: function (r) { },
+        success: function (r) {
+          if (r.result) { 
+            $('#successc').show();
+            LoadContacts();
+          } else {
+            $('#errorc').show();
+          }
+        }
+      });
+
+    }
+
+  });
 
   $('#eventSubmit').on('click', function (e) {
     e.preventDefault();
@@ -268,15 +303,12 @@
     var summary = $('#summary').val();
     var description = $('#description').val();
     var location = $('#location').val();
-    var start = $('#start').val();
-    var end = $('#end').val();
+    var start = $('#fromdate').val();
+    var end = $('#todate').val();
 
     if (summary == "" || summary == null || description == "" || description == null || location == "" || location == null || start == null || start == "" || end == "" || end == null) {
-      iziToast.warning({
-        title: 'Warning',
-        message: "Please fill all the fields...!",
-        position: 'center',
-      });
+      $('#errore').hide();
+      ;
     } else {
       $.ajax({
         url: '/addEvent',
@@ -294,13 +326,10 @@
         error: function (r) { },
         success: function (r) {
           if (r.result) { 
-
-            alertify.success('Ok');
-         
+            $('#success').show();
+            LoadEvents();
           } else {
-            $('#msg_error').show();
-            $('#main_form').hide();
-
+            $('#error').show();
           }
         }
       });
