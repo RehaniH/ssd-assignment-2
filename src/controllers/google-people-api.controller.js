@@ -1,4 +1,4 @@
-const googleApiUtil = require('../google-api-util') 
+const googleApiUtil = require('../google-api-util')
 const {google} = require('googleapis')
 
 
@@ -6,17 +6,16 @@ exports.createGoogleContact = function(req, res){
 
 }
 
-exports.getGoogleContact = function(req, res){
+exports.getGoogleContact = function(res){
 
     const contacts = google.people({version: 'v1', auth: googleApiUtil.client});
     contacts.people.connections.list({
         resourceName: 'people/me',
         pageSize: 10,
         personFields: 'names,emailAddresses',
-    }, (err, res) => {
-        if (err) return res.json({ error_msg: 'Unexpected Error' , error_stat: 1});
-
-        const connections = res.data.connections;
+    }, (err, resp) => {
+        if (err) return res.json({error_stat:1, error_msg: 'insufficient permission'});
+        const connections = resp.data.connections;
         if (connections) {
             contactList = []
             connections.forEach((person) => {
@@ -27,10 +26,10 @@ exports.getGoogleContact = function(req, res){
                     })
                 }
             })
-
-            return res.json({ result: contactList});
+            console.log(contactList)
         } else {
             console.log('No connections found.');
         }
+        return res.json({ result: contactList, error_stat: 0 });
     });
 }

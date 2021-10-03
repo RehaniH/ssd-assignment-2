@@ -17,7 +17,6 @@ app.use(session({
 
 app.get('/', function(req, res) {
     var url = googleApiUtil.getUrl();
-    //res.status(200).json({ url: url });
     res.render("login", { url: url });
 });
 
@@ -27,8 +26,9 @@ app.get("/redirect", function(req, res) {
     var session = req.session;
     var code = req.query.code;
     
+    //direct authorization code and session credentails to OAuth Server
     googleApiUtil.client.getToken(code, function(err, tokens, body) {
-        session.tokens = tokens;
+        session.tokens = tokens; //receive Auth Token
         console.log(tokens);
         googleApiUtil.client.setCredentials(tokens);
     });
@@ -45,7 +45,7 @@ app.get('/getevents', function(req, res){
 });
 
 app.get('/getContacts', function(req, res){
-    googlePeopleApiController.getGoogleContact(req, res)
+    googlePeopleApiController.getGoogleContact(res)
 });
 
 app.listen(PORT, function () {
