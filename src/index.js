@@ -24,6 +24,7 @@ app.get('/', function(req, res) {
 app.get("/redirect", function(req, res) {
 
     var session = req.session;
+    //authorization code
     var code = req.query.code;
     
     //direct authorization code and session credentails to OAuth Server
